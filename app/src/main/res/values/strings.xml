@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">pruebaTecnica</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="prefs_file">com.example.pruebatecnica.PREFERENCE_FILE_KEY</string>
+</resources>
