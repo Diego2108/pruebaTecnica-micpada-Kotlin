@@ -1,23 +1,22 @@
 package com.example.pruebatecnica
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.pruebatecnica.databinding.FragmentTriangulosBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private lateinit var binding: FragmentTriangulosBinding
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TriangulosFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+private val base = binding.editTextBase.text
+private val altura = binding.editTextAltura.text
+
 class TriangulosFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -30,11 +29,10 @@ class TriangulosFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_triangulos, container, false)
+        setup()
     }
 
     companion object {
@@ -44,7 +42,7 @@ class TriangulosFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment TriangulosFragment.
+         * @return A new instance of fragment PruebaFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
@@ -55,5 +53,16 @@ class TriangulosFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun setup() {
+        binding.buttonCalcular.setOnClickListener {
+            if (base.isNotEmpty() && altura.isNotEmpty()) {
+                //aplicarFormula()
+                val producto = base.toString().toInt() * altura.toString().toInt()
+                val resultado = (producto/2).toString()
+                binding.textViewResult.text = resultado
+            }
+        }
     }
 }

@@ -3,7 +3,10 @@ package com.example.pruebatecnica
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import com.example.pruebatecnica.databinding.ActivityAuthBinding
 import com.example.pruebatecnica.databinding.ActivityHomeBinding
 import com.example.pruebatecnica.databinding.FragmentHomeBinding
@@ -27,13 +30,14 @@ class HomeActivity : AppCompatActivity() {
         val provider = bundle?.getString("provider")
         setup(email ?: "", provider ?: "")
 
+
         //Persistencia de datos
         val prefs = getSharedPreferences(getString(R.string.prefs_file), Context.MODE_PRIVATE).edit()
         prefs.putString("email",email)
         prefs.putString("provider",provider)
         prefs.apply()
 
-        binding.bottomNavigationView.setOnItemReselectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when(it.itemId) {
 
                 R.id.home -> replaceFragment(HomeFragment())
@@ -48,9 +52,13 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun add() {
+        TODO("Not yet implemented")
+    }
+
     private fun setup(email:String,provider:String) {
         title = "Inicio"
-        binding.textViewUser.text = email
+        /*binding.textViewUser.text = email
 
         binding.buttonCerrarSesion.setOnClickListener {
 
@@ -61,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
 
             FirebaseAuth.getInstance().signOut()
             onBackPressed()
-        }
+        }*/
 
     }
 
