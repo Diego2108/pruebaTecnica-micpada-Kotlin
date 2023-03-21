@@ -2,4 +2,6 @@
     <string name="app_name">pruebaTecnica</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="prefs_file">com.example.pruebatecnica.PREFERENCE_FILE_KEY</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

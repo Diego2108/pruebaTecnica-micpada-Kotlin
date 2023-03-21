@@ -3,8 +3,10 @@ package com.example.pruebatecnica
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.pruebatecnica.databinding.ActivityAuthBinding
 import com.example.pruebatecnica.databinding.ActivityHomeBinding
+import com.example.pruebatecnica.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 
 enum class ProviderType {
@@ -17,6 +19,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        replaceFragment(HomeFragment())
 
         // SETUP
         val bundle = intent.extras
@@ -29,6 +32,20 @@ class HomeActivity : AppCompatActivity() {
         prefs.putString("email",email)
         prefs.putString("provider",provider)
         prefs.apply()
+
+        binding.bottomNavigationView.setOnItemReselectedListener {
+            when(it.itemId) {
+
+                R.id.home -> replaceFragment(HomeFragment())
+                R.id.math -> replaceFragment(TriangulosFragment())
+                R.id.red -> replaceFragment(MicpadaFragment())
+
+                else -> {
+
+                }
+            }
+            true
+        }
     }
 
     private fun setup(email:String,provider:String) {
@@ -46,5 +63,12 @@ class HomeActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val framentManager = supportFragmentManager
+        val fragmentTransaction = framentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameLayout,fragment)
+        fragmentTransaction.commit()
     }
 }
