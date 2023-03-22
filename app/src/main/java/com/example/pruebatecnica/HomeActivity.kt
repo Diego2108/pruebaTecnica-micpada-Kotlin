@@ -1,28 +1,26 @@
 package com.example.pruebatecnica
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import com.example.pruebatecnica.databinding.ActivityAuthBinding
 import com.example.pruebatecnica.databinding.ActivityHomeBinding
-import com.example.pruebatecnica.databinding.FragmentHomeBinding
+
 import com.google.firebase.auth.FirebaseAuth
 
 enum class ProviderType {
     BASIC,
     GOOGLE
 }
+
+private lateinit var binding: ActivityHomeBinding
 class HomeActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        replaceFragment(HomeFragment())
+        //replaceFragment(HomeFragment())
 
         // SETUP
         val bundle = intent.extras
@@ -36,20 +34,6 @@ class HomeActivity : AppCompatActivity() {
         prefs.putString("email",email)
         prefs.putString("provider",provider)
         prefs.apply()
-
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId) {
-
-                R.id.home -> replaceFragment(HomeFragment())
-                R.id.math -> replaceFragment(TriangulosFragment())
-                R.id.red -> replaceFragment(MicpadaFragment())
-
-                else -> {
-
-                }
-            }
-            true
-        }
     }
 
     private fun add() {
@@ -58,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setup(email:String,provider:String) {
         title = "Inicio"
-        /*binding.textViewUser.text = email
+        binding.textViewUser.text = email
 
         binding.buttonCerrarSesion.setOnClickListener {
 
@@ -69,14 +53,17 @@ class HomeActivity : AppCompatActivity() {
 
             FirebaseAuth.getInstance().signOut()
             onBackPressed()
-        }*/
+        }
 
-    }
+        binding.buttonWebView.setOnClickListener {
+            val webViewIntent = Intent(this,WebViewActivity::class.java)
+            startActivity(webViewIntent)
+        }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val framentManager = supportFragmentManager
-        val fragmentTransaction = framentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frameLayout,fragment)
-        fragmentTransaction.commit()
+        binding.buttonTriangulos.setOnClickListener {
+            val triangulosIntent = Intent(this,TriangulosActivity::class.java)
+            startActivity(triangulosIntent)
+        }
+
     }
 }
